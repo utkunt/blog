@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<h3>Panel</h3>
+	<hr>
+	{% if request.user.is_authenticated %}
+	<p>merhaba, <small>{{request.user.username}}</small></p>
+	{% endif %}
+	<a href="{% url 'user:addarticle' %}" class = "btn btn-info">Yazı Ekle</a>
+	<hr>
+	{% if articles %}
+	<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Başlık</th>
+      <th scope="col">Yazar</th>
+      <th scope="col">Oluşturulma Tarihi</th>
+      <th scope="col">Güncelle / Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for article in articles %}
+    <tr>
+      <th scope="row">{{article.id}}</th>
+      <td><a href="/user/detail/{{article.id}}">{{article.title}}</a></td>
+      <td>{{article.author}}</td>
+      <td>{{article.date}}</td>
+      <td scope="col"><a style = "margin-right: 5px;" class = "btn btn-info" href="/user/update/{{article.id}}">Güncelle</a><a  class = "btn btn-warning"href="/user/delete/{{article.id}}">Sil</a><td>
+    </tr>
+      {% endfor %}
+  </tbody>
+</table>
+{% else %}
+    <div class = "alert alert-warning">Henüz Bir Yazınız Bulunmuyor</div>
+	    
+	
+	{% endif %}
+    
+{% endblock body %}

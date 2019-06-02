@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">UNT Blog</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+
+    <!-- left side -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'about' %}">Hakkımda</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'article' %}">Yazılar</a>
+      </li>
+    </ul>
+
+    <!-- left side -->
+    <ul class="navbar-nav ml-auto">
+
+      {% if request.user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'user:dashboard' %}">Panel</a>
+      </li><li class="nav-item active">
+        <a class="nav-link" href="{% url 'user:logout' %}">Çıkış</a>
+      </li>
+      {% else %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'user:register' %}">Kayıt</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'user:login' %}">Giriş</a>
+      </li>
+      {% endif %}
+    </ul>
+
+  </div>
+</nav>

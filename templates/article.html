@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block body %}
+	<h3>Yazılar</h3>
+	<hr>
+		<form class="form-inline">
+			{% csrf_token %}
+			<input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Ara" aria-label="Search">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Başlıkta Ara</button>
+		</form>
+	{% if articles %}
+		{% for article in articles %}
+			<div class="row" style = "margin-bottom: 50px;">
+				<!-- Post Content Column -->
+				<div class="col-lg-8">
+					<!-- Title -->
+					<h1 class="mt-4">{{article.title}}</h1>
+					<!-- Author -->
+					<p class="lead">
+						{{article.author}}
+					</p>
+					<!-- Date/Time -->
+					<p>{{article.date}}</p>
+					<hr>
+					<!-- Preview Image -->
+					{% if article.article_image %}
+						<img class="img-fluid rounded" src="{{article.article_image.url}}" alt="">
+						<hr>
+						test
+					{% endif %}
+					<!-- Post Content -->
+					<p class="lead">{{article.content|safe|truncatewords:10}}</p>
+					<a href="/user/detail/{{article.id}}" class = "alert alert-info">Devamını Oku</a>
+					
+					
+				</div>
+			</div>
+		{% endfor %}
+	{% else %}
+		<div class = "alert alert-danger">Herhangi bir yazı bulunmuyor.</div>
+		
+		
+	{% endif %}
+	
+{% endblock body %}
